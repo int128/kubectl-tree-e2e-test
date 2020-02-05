@@ -1,0 +1,28 @@
+name: acceptance-test
+on: [push]
+jobs:
+  build:
+    name: test
+    # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/software-installed-on-github-hosted-runners#ubuntu-1804-lts
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      # https://kind.sigs.k8s.io/docs/user/quick-start/
+      - run: |
+          wget -q -O ./kind "https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64"
+          chmod +x ./kind
+          sudo mv ./kind /usr/local/bin/kind
+          kind version
+      # https://github.com/kubernetes-sigs/krew
+      - run: |
+          (
+            set -x; cd "$(mktemp -d)" &&
+            curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/download/v0.3.3/krew.{tar.gz,yaml}" &&
+            tar zxvf krew.tar.gz &&
+            KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" &&
+            "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz &&
+            "$KREW" update
+          )
+      # https://github.com/ahmetb/kubectl-tree
+      - run: PATH=$PATH:$HOME/.krew/bin kubectl krew install tree
+      - run: PATH=$PATH:$HOME/.krew/bin make
