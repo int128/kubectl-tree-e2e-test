@@ -1,4 +1,4 @@
-name: acceptance-test
+name: test
 on: [push]
 jobs:
   build:

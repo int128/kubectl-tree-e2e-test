@@ -1,4 +1,4 @@
-# kubectl-tree-e2e-test
+# kubectl-tree-e2e-test ![test](https://github.com/int128/kubectl-tree-e2e-test/workflows/test/badge.svg)
 
 This is an end-to-end test of [kubectl-tree](https://github.com/ahmetb/kubectl-tree).
 
