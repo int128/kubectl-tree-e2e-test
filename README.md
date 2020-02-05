@@ -6,15 +6,16 @@ It shows how to test a kubectl plugin with a real Kubernetes cluster on CI.
 
 ## How it works
 
-This test runs with the following stack:
+The test runs with the following stack:
 
 ![test-kubectl-plugin-with-cluster](test-kubectl-plugin-with-cluster.svg)
 
 The test scenario is written in [Makefile](Makefile).
-It create a Kubernetes cluster using [Kind](https://kind.sigs.k8s.io) and deploy the [fixture](fixture.yaml).
+It creates a Kubernetes cluster using [Kind](https://kind.sigs.k8s.io) and deploy the [fixture](fixture.yaml).
 After deployment, it runs `kubectl tree` and check its output.
 
-It is run on GitHub Actions [workflow](.github/workflows/test.yaml).
+The test runs on GitHub Actions [workflow](.github/workflows/test.yaml).
+It installs the newer version of Kind, krew and kubectl-tree.
 
 
 ## Run locally
