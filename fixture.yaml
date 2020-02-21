@@ -9,16 +9,16 @@ metadata:
   name: echoserver
   namespace: echoserver
   labels:
-    app: echoserver
+    app.kubernetes.io/name: echoserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: echoserver
+      app.kubernetes.io/name: echoserver
   template:
     metadata:
       labels:
-        app: echoserver
+        app.kubernetes.io/name: echoserver
     spec:
       containers:
       - image: gcr.io/google_containers/echoserver:1.10
@@ -48,7 +48,7 @@ metadata:
   name: echoserver
   namespace: echoserver
   labels:
-    app: echoserver
+    app.kubernetes.io/name: echoserver
 spec:
   type: ClusterIP
   ports:
@@ -57,4 +57,4 @@ spec:
     port: 80
     targetPort: http
   selector:
-    app: echoserver
+    app.kubernetes.io/name: echoserver
